@@ -63,7 +63,21 @@ proportion_robbery = crime_data_robbery$count/crime_data_district$count
 which.max(proportion_robbery) #Returns indexed 5, equivalent to district 5
 #District 5 has the largest proportion of crime related to robbery.
 
+#5)
+plot_data = read.csv("March2018.csv") 
+plot_data$date = strptime(plot_data$DateOccur, "%m/%d/%Y %H:%M")
+plot_data$date = as.Date(plot_data$date, "%m/%d/%Y")
+plot_data$date = as.character(plot_data$date)
+plot_data = plot_data %>% 
+  group_by(date) %>%
+  summarise(count=n()) 
+
+ggplot(data = plot_data, mapping = aes(x = date, y = count)) + 
+  geom_point() +
+  labs(title = "Total Crime Over Time") +
+  ylab("Number of Crimes") +
+  xlab("Days") 
+  
 
 
-#5. Visualize changes of all types of crime over time using ggplot2. Write appropriate labels and titles.
 #6. Visualize changes of all types of crime over time by district using ggplot2. Choose different color to indicate each district. Write ap- propriate legend, labels and titles.
