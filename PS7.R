@@ -74,10 +74,24 @@ plot_data = plot_data %>%
 
 ggplot(data = plot_data, mapping = aes(x = date, y = count)) + 
   geom_point() +
-  labs(title = "Total Crime Over Time") +
-  ylab("Number of Crimes") +
+  labs(title = "Total Crime over Time") +
+  ylab("Total Number of Crimes") +
   xlab("Days") 
   
+#6)
+plot_data = read.csv("March2018.csv") 
+plot_data$date = strptime(plot_data$DateOccur, "%m/%d/%Y %H:%M")
+plot_data$date = as.Date(plot_data$date, "%m/%d/%Y")
+plot_data$date = as.character(plot_data$date)
+plot_data = plot_data %>% 
+  group_by(date, District) %>%
+  summarise(count=n()) 
 
+ggplot(data = plot_data, mapping = aes(x = date, y = count)) + 
+  geom_point(aes(color = as.factor(District))) + #as.factor makes the colors unrelated. Colors otherwise of same shade.
+  labs(title = "Crimes over Time by District", color = "Districts") + #Add title and label legend
+  ylab("Total Number of Crimes") +  #Label y axis
+  xlab("Days") #Label x axis "Days." Hard to read because many of these crimes occurred before March.
 
-#6. Visualize changes of all types of crime over time by district using ggplot2. Choose different color to indicate each district. Write ap- propriate legend, labels and titles.
+# The sudden increase in times is because most of the crimes, but not all of them,
+# occurred in March.
