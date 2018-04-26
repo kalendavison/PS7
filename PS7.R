@@ -100,4 +100,4 @@ ggplot(data = plot_data, mapping = aes(x = date, y = count)) +
   xlab("Days") #Label x axis "Days." Hard to read because many of these crimes occurred before March.
 
 # The sudden increase in times is because most of the crimes, but not all of them,
-# occurred in March.
+# occurred in March 2018.
